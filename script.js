@@ -1,30 +1,51 @@
-function handleClick(event) {
-  const source = document.getElementById(event.target.id);
-
-  if(event.target.nextElementSibling != closeOpenDropdown())
-    source.nextElementSibling.classList.toggle("hide");
-
-  else
-    event.target.nextElementSibling.classList.add("hide");
-}
-
-function closeOpenDropdown() {
+//Checks how many dropdowns are opend
+function CheckOpenDropdown() {
   const openDropdown = document.querySelectorAll(".dropdown");
+  let cont = 0;
 
   for(let i = 0; i < openDropdown.length; i++){
-    if(!openDropdown[i].classList.contains("hide")){
-      openDropdown[i].classList.add("hide");
-      return openDropdown[i];
-    }
+    if(!openDropdown[i].classList.contains("hide"))
+      return i;
   }
-  return;
+
+  return -1;
 }
 
-document.addEventListener('mouseup', function (e) {
-  var container = document.querySelector(".node");
-  if (!container.contains(e.target) || e.target == document.querySelector(".node-btn")) {
-    closeOpenDropdown();
+//Closes the open dropdown
+function closeDropdown(){
+  const Dropdowns = document.querySelectorAll(".dropdown");
+
+  for(let i = 0; i < Dropdowns.length; i++){
+    if(!Dropdowns[i].classList.contains("hide"))
+      Dropdowns[i].classList.add("hide");
   }
-}.bind(this));
+}
+
+//Event Listener for all click interactions in the display element
+document.addEventListener('mouseup', function (e){
+  const Dropdowns = document.querySelectorAll(".dropdown");
+  const source = e.target;
+  var index;
+  
+  if(source.classList.contains("node-btn")){   
+    if(CheckOpenDropdown() != -1){
+      index = CheckOpenDropdown();
+      if(source.nextElementSibling == Dropdowns[index])
+        source.nextElementSibling.classList.add("hide");
+      else{
+        source.nextElementSibling.classList.remove("hide");
+        Dropdowns[index].classList.add("hide");
+      }
+    }
+    
+    else if(source.nextElementSibling.classList.contains("hide"))
+      source.nextElementSibling.classList.remove("hide");
+    else
+      source.nextElementSibling.classList.add("hide");
+  }
+
+  else if(source == document.getElementById("display"))
+    closeDropdown();
+});
 
 //necessario implementare un sistema di assegnazione id alla generazione dei bottoni
