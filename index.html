@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,500;0,700;1,100;1,700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/ba1c8fae19.js" crossorigin="anonymous"></script>
     <title>Linked List Visualization</title>
 </head>
@@ -30,10 +30,10 @@
             <div class="dropdown hide">
                 <i class="arrow fa-solid fa-angle-up"></i>
                 <input class="value" placeholder="Modify value"></input>
-                <button class="dropdown-btn enter">Enter</button>
-                <button class="dropdown-btn shift">< Shift left</button>
-                <button class="dropdown-btn shift">Shift right ></button>
-                <button class="dropdown-btn remove">Remove</button>
+                <button class="dropdown-btn" id="enter">Enter</button>
+                <button class="dropdown-btn" id="shift-left">< Shift left</button>
+                <button class="dropdown-btn" id="shift-right">Shift right ></button>
+                <button class="dropdown-btn" id="remove">Remove</button>
             </div>
         </div>
         <div class="node">
@@ -66,6 +66,7 @@
                 <button class="dropdown-btn remove">Remove</button>
             </div>
         </div>
+        
     </section>
     <script src="script.js"></script>
 </body>
