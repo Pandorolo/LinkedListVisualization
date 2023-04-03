@@ -28,10 +28,13 @@ document.addEventListener('mouseup', function (e){
   var index;
   
   if(source.classList.contains("node-btn")){   
+    //If there are open dropdowns
     if(CheckOpenDropdown() != -1){
       index = CheckOpenDropdown();
+      //close the open dropdown
       if(source.nextElementSibling == Dropdowns[index])
         source.nextElementSibling.classList.add("hide");
+      //open the dropdown      
       else{
         source.nextElementSibling.classList.remove("hide");
         Dropdowns[index].classList.add("hide");
@@ -48,4 +51,20 @@ document.addEventListener('mouseup', function (e){
     closeDropdown();
 });
 
-//necessario implementare un sistema di assegnazione id alla generazione dei bottoni
+function createNode(){
+  var nodeTemplate = document.getElementById("#btn-template");
+  var nodeContent = nodeTemplate.content.cloneNode(true);
+  return nodeContent;
+}
+
+function insertHead(){
+  insert(0);
+}
+
+function insertTail(){
+  insert(document.getElementById("display").querySelectorAll("node").length);
+}
+
+function insert(index){
+
+}
