@@ -54,30 +54,28 @@ document.addEventListener('mouseup', function (e){
     closeDropdown();
 });
 
-function createNode(info){
+function createNode(info, type){
 
-  var nodeTemplate = document.getElementById("btn-template");
+  if(type == 0)
+    var nodeTemplate = document.getElementById("btn-template");
+  else
+    var nodeTemplate = document.getElementById("btn-template-tail");
+
   var nodeContent = nodeTemplate.content.cloneNode(true);
-  //nodeContent.getElementsByClassName("info").text(info);
+  //da fixare l'inserimento del testo nel nuovo nodo
+  nodeContent.getElementById("info").innerHTML(info);
   return nodeContent;
 }
 
-function insertHead(){
+function insertHead(info){
   
-  insert(0, 0, event);
+  var node = createNode(1 /*info*/, 0);
+  document.getElementById("display").insertBefore(node, document.getElementById("display").children[0]);
 }
 
-function insertTail(){
+function insertTail(info){
 
-  insert(document.getElementById("display").querySelectorAll(".node").length, 0);
-}
+  var node = createNode(1 /*info*/, 1);
 
-function insert(index, info, event){
-  
-  node = createNode(info);
-
-  if(index < document.getElementById("display").querySelectorAll(".node").length)
-    document.getElementById("display").insertBefore(node, document.getElementById("display").children[0]);
-  else
-    document.getElementById("display").appendChild(node, document.getElementById("display").children[0]);
+  document.getElementById("display").appendChild(node, document.getElementById("display").children[0]);
 }
