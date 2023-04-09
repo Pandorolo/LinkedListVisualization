@@ -1,5 +1,6 @@
 //Checks how many dropdowns are opend
 function CheckOpenDropdown() {
+  
   const openDropdown = document.querySelectorAll(".dropdown");
   let cont = 0;
 
@@ -13,6 +14,7 @@ function CheckOpenDropdown() {
 
 //Closes the open dropdown
 function closeDropdown(){
+
   const Dropdowns = document.querySelectorAll(".dropdown");
 
   for(let i = 0; i < Dropdowns.length; i++){
@@ -23,6 +25,7 @@ function closeDropdown(){
 
 //Event Listener for all click interactions in the display element
 document.addEventListener('mouseup', function (e){
+  
   const Dropdowns = document.querySelectorAll(".dropdown");
   const source = e.target;
   var index;
@@ -51,20 +54,30 @@ document.addEventListener('mouseup', function (e){
     closeDropdown();
 });
 
-function createNode(){
-  var nodeTemplate = document.getElementById("#btn-template");
+function createNode(info){
+
+  var nodeTemplate = document.getElementById("btn-template");
   var nodeContent = nodeTemplate.content.cloneNode(true);
+  //nodeContent.getElementsByClassName("info").text(info);
   return nodeContent;
 }
 
 function insertHead(){
-  insert(0);
+  
+  insert(0, 0, event);
 }
 
 function insertTail(){
-  insert(document.getElementById("display").querySelectorAll("node").length);
+
+  insert(document.getElementById("display").querySelectorAll(".node").length, 0);
 }
 
-function insert(index){
+function insert(index, info, event){
+  
+  node = createNode(info);
 
+  if(index < document.getElementById("display").querySelectorAll(".node").length)
+    document.getElementById("display").insertBefore(node, document.getElementById("display").children[0]);
+  else
+    document.getElementById("display").appendChild(node, document.getElementById("display").children[0]);
 }
