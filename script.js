@@ -1,8 +1,7 @@
-//Checks how many dropdowns are opend
+//Function to check the number of open dropdowns menù
 function CheckOpenDropdown() {
   
   const openDropdown = document.querySelectorAll(".dropdown");
-  let cont = 0;
 
   for(let i = 0; i < openDropdown.length; i++){
     if(!openDropdown[i].classList.contains("hide"))
@@ -12,7 +11,7 @@ function CheckOpenDropdown() {
   return -1;
 }
 
-//Closes the open dropdown
+//Function to close the open dropdown
 function closeDropdown(){
 
   const Dropdowns = document.querySelectorAll(".dropdown");
@@ -54,7 +53,8 @@ document.addEventListener('mouseup', function (e){
     closeDropdown();
 });
 
-function createNode(info, type){
+//handle the creation of a new node
+function createNode(type){
 
   if(type == 0)
     var nodeTemplate = document.getElementById("btn-template");
@@ -62,20 +62,32 @@ function createNode(info, type){
     var nodeTemplate = document.getElementById("btn-template-tail");
 
   var nodeContent = nodeTemplate.content.cloneNode(true);
-  //da fixare l'inserimento del testo nel nuovo nodo
-  nodeContent.getElementById("info").innerHTML(info);
   return nodeContent;
 }
 
-function insertHead(info){
+//add a new empty node element to the head of the list 
+function insertHead(){
   
-  var node = createNode(1 /*info*/, 0);
+  var node = createNode(0);
   document.getElementById("display").insertBefore(node, document.getElementById("display").children[0]);
 }
 
-function insertTail(info){
+//add a new empty node element to the tail of the list
+function insertTail(){
 
-  var node = createNode(1 /*info*/, 1);
+  const count = document.getElementById("display").children.length;
+  var node = createNode(1);
 
-  document.getElementById("display").appendChild(node, document.getElementById("display").children[0]);
+  document.getElementById("display").appendChild(node, document.getElementById("display").children[count]);
+}
+
+//handle the input or change of information in a node
+function modifyInfo(e){
+  const info = e.target.previousElementSibling.value;
+  
+  //error check
+  if(!info)
+    return;
+
+  e.target.parentElement.previousElementSibling.children[0].innerHTML = info;
 }
