@@ -1,3 +1,6 @@
+/*Code written by Massi Nicola*/
+/* GitHub: https://github.com/NicolaMassi */
+
 :root{
     --background-color: #212529;
     --background-color1: #DEE2E6;
@@ -33,28 +36,41 @@ body{
 
 .nav-btn{
     flex: auto;
+    position: relative;
     border: 1px solid var(--background-color);
+    border-bottom: none;
     font-size: 2vh;
     font-weight: 500;
-    color: black;
-    background-color: var(--btn-color);
+    background: none;
+    color: white;
+    transition: color 0.4s linear;
     overflow: hidden;
+    cursor: pointer;
+    text-transform:uppercase;
 }
 
 .nav-btn:hover{
-    color: white;
-    background: var(--btn-color1);
+    color: black;
 }
 
 .nav-btn::before{
     content: "";
-    position: relative;
+    position: absolute;
+    left: 0;
+    top: 0;
     width: 100%;
     height: 100%;
-    background: #000;
-    z-index: 1;
+    background: var(--background-color1);
+    z-index: -1;
+    transition: transform 0.5s;
+    transform-origin: 0 0;
+    transition-timing-function: cubic-bezier(0.5, 1.6, 0.4, 0.7);
+    transform: scaleY(0);
 }
 
+.nav-btn:hover::before{
+    transform: scaleY(1);
+}
 .nav-btn:first-of-type{
     border-top-left-radius: 0.3em;
 }
@@ -83,6 +99,7 @@ body{
 
 .node-btn{
     display: flex;
+    cursor: pointer;
     width: 100%;
     height: 7vh;
     border: 0 solid #000;
@@ -90,7 +107,6 @@ body{
     color: var(--text-color);
     font-size: 3vh;
     border-radius: 0.35em;
-    /* box-shadow: 6px 8px #adb5bd; */
     transition: 800ms;
 }
 
@@ -99,6 +115,10 @@ body{
     color: var(--text-color);
     transition: 800ms;
     transform: translateY(-1vh);
+}
+
+.node-btn:hover .info{
+    overflow: visible;
 }
 
 .left{
@@ -120,6 +140,9 @@ body{
 .info{
   text-align: center;
   padding-top: 1.5vh;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: "...";
 }
 
 .dropdown{
@@ -172,6 +195,7 @@ body{
     border: none;
     background-color: #343A40;
     color: white;
+    cursor: pointer;
 }
 
 .dropdown-btn:last-of-type:hover{

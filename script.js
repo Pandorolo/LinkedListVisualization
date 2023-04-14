@@ -1,3 +1,8 @@
+/*
+Code written by Massi Nicola 
+GitHub: https://github.com/NicolaMassi 
+*/
+
 //Function to check the number of open dropdowns menù
 function CheckOpenDropdown() {
   
@@ -59,35 +64,106 @@ function createNode(type){
   if(type == 0)
     var nodeTemplate = document.getElementById("btn-template");
   else
-    var nodeTemplate = document.getElementById("btn-template-tail");
+    var nodeTemplate = document.getElementById("btn-template");
 
-  var nodeContent = nodeTemplate.content.cloneNode(true);
+  const nodeContent = nodeTemplate.content.cloneNode(true);
   return nodeContent;
 }
 
-//add a new empty node element to the head of the list 
+function createArrow(){
+
+  const arrowTemplate = document.getElementById("arrow-template");
+  const nodeArrow = arrowTemplate.content.cloneNode(true);
+
+  return nodeArrow;
+}
+
+//add a new empty node element to the head of the list
 function insertHead(){
   
-  var node = createNode(0);
-  document.getElementById("display").insertBefore(node, document.getElementById("display").children[0]);
+  const node = createNode(0);
+  const arrow = createArrow();
+
+  if(document.getElementById("display").children.length != 0){
+    document.getElementById("display").insertBefore(node, document.getElementById("display").children[0]);
+    document.getElementById("display").insertBefore(arrow, document.getElementById("display").children[1]);
+  }
+  else
+    insertTail(node);
 }
 
 //add a new empty node element to the tail of the list
 function insertTail(){
 
-  const count = document.getElementById("display").children.length;
-  var node = createNode(1);
+  var count = document.getElementById("display").children.length;
+  const node = createNode(1);
+  const arrow = createArrow();
 
+  document.getElementById("display").appendChild(arrow, document.getElementById("display").children[count]);
   document.getElementById("display").appendChild(node, document.getElementById("display").children[count]);
 }
 
 //handle the input or change of information in a node
 function modifyInfo(e){
+
   const info = e.target.previousElementSibling.value;
-  
-  //error check
   if(!info)
     return;
 
   e.target.parentElement.previousElementSibling.children[0].innerHTML = info;
+}
+
+function removeNode(e){
+  
+  if(e.target.parentElement.parentElement.previousElementSibling != null && e.target.parentElement.parentElement.previousElementSibling.classList.contains("node-arrow"))
+    e.target.parentElement.parentElement.previousElementSibling.remove();
+
+  else if(e.target.parentElement.parentElement.nextElementSibling != null && e.target.parentElement.parentElement.nextElementSibling.classList.contains("node-arrow"))
+    e.target.parentElement.parentElement.nextElementSibling.remove();
+
+  e.target.parentElement.parentElement.remove();
+}
+
+function shiftLeft(e){
+
+  if(!e.target.parentElement.parentElement.previousElementSibling.previousElementSibling)
+    return;
+
+  var element = e.target.parentElement.parentElement;
+  var element2 = e.target.parentElement.parentElement.previousElementSibling.previousElementSibling;
+  var aux = element2;
+
+  document.getElementById("display").insertBefore(element.cloneNode(true), document.getElementById("display").children[getIndex(e.target.parentElement.parentElement.previousElementSibling)]);
+  document.getElementById("display").insertBefore(aux.cloneNode(true), document.getElementById("display").children[getIndex(e.target.parentElement.parentElement)]);
+  
+  closeDropdown();
+
+  element2.remove();
+  element.remove();
+}
+
+function shiftRight(e){
+  if(!e.target.parentElement.parentElement.nextElementSibling.nextElementSibling)
+    return;
+
+  var element = e.target.parentElement.parentElement;
+  var element2 = e.target.parentElement.parentElement.nextElementSibling.nextElementSibling;
+  var aux = element2;
+
+  document.getElementById("display").insertBefore(element.cloneNode(true), document.getElementById("display").children[getIndex(e.target.parentElement.parentElement.nextElementSibling.nextElementSibling)]);
+  document.getElementById("display").insertBefore(aux.cloneNode(true), document.getElementById("display").children[getIndex(e.target.parentElement.parentElement)]);
+
+  closeDropdown();
+
+  element2.remove();
+  element.remove();
+}
+
+function getIndex(element){
+  
+  for(var i = 0; i < document.getElementById("display").children.length; i++)  {
+    if(document.getElementById("display").children[i] == element)
+      return i;
+  }
+  return -1;
 }
